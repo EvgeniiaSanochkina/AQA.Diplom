@@ -1,27 +1,51 @@
 package data;
 
-import com.github.javafaker.Faker;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 
+
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class DBHelper {
+    private static QueryRunner runner;
+    private static Connection conn;
 
-    private static QueryRunner runner = new QueryRunner();
-
-    private DBHelper() {
+    @BeforeEach
+    @SneakyThrows
+    void setup() {
+        runner = new QueryRunner();
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
+    }
+    @SneakyThrows
+        public static PaymentEntity getDebitCardStatus() {
+            var statusSQL = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1;";
+             return runner.query(conn, statusSQL, new BeanHandler<>(PaymentEntity.class));
     }
 
-
-    private static Connection getConn() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
+    @SneakyThrows
+    public static CreditRequestEntity getCreditCardStatus() {
+        var statusSQL = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1;";
+        return runner.query(conn, statusSQL, new BeanHandler<>(CreditRequestEntity.class));
     }
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PaymentEntity {
+        private String status;
+    }
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CreditRequestEntity {
+        private String status;
+    }
 }
