@@ -1,45 +1,117 @@
 package data;
 
-import com.github.javafaker.Name;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.Value;
 
 import com.github.javafaker.Faker;
 
-import java.time.Month;
-import java.time.Year;
 import java.time.format.DateTimeFormatter;
 
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import java.time.LocalDate;
 
 public class DataHelper {
 
     private static Faker faker = new Faker(new Locale("en"));
+
     private DataHelper() {
     }
 
     @Value
-    public static class approvedCardInfo {
-        private String cardHolder;
+    public static class approvedCardWithValidInformation {
+        private String cardNumber;
         private String month;
         private String year;
+        private String cardHolder;
         private String cvv;
+    }
+
+    @Value
+    public static class randomCardInfo {
         private String cardNumber;
+        private String month;
+        private String year;
+        private String cardHolder;
+        private String cvv;
+    }
+
+    @Value
+    public static class approvedCardWithInvalidMonth {
+        private String cardNumber;
+        private String month;
+        private String year;
+        private String cardHolder;
+        private String cvv;
+    }
+
+    @Value
+    public static class approvedCardWithInvalidYear {
+        private String cardNumber;
+        private String month;
+        private String year;
+        private String cardHolder;
+        private String cvv;
+    }
+
+    @Value
+    public static class approvedCardWithPastYear {
+        private String cardNumber;
+        private String month;
+        private String year;
+        private String cardHolder;
+        private String cvv;
+    }
+
+    @Value
+    public static class approvedCardWithEmptyCardHolder {
+        private String cardNumber;
+        private String month;
+        private String year;
+        private String cardHolder;
+        private String cvv;
+    }
+
+    @Value
+    public static class approvedCardWithInvalidCVV {
+        private String cardNumber;
+        private String month;
+        private String year;
+        private String cardHolder;
+        private String cvv;
+    }
+
+    @Value
+    public static class approvedCardWithEmptyMonth {
+        private String cardNumber;
+        private String month;
+        private String year;
+        private String cardHolder;
+        private String cvv;
+    }
+
+    @Value
+    public static class approvedCardWithEmptyYear {
+        private String cardNumber;
+        private String month;
+        private String year;
+        private String cardHolder;
+        private String cvv;
     }
     @Value
-    public static class declinedCardInfo {
-        private String cardHolder;
+    public static class approvedCardWithEmptyCVV {
+        private String cardNumber;
         private String month;
         private String year;
+        private String cardHolder;
         private String cvv;
+    }
+
+    @Value
+    public static class declinedCardWithValidInformation {
         private String cardNumber;
+        private String month;
+        private String year;
+        private String cardHolder;
+        private String cvv;
     }
 
     public static String generateCardHolderName() {
@@ -48,16 +120,40 @@ public class DataHelper {
         return firstName + " " + lastName;
     }
 
+    public static String generateEmptyString() {
+        return null;
+    }
+
     public static String generateMonth(int shiftMonth) {
         return LocalDate.now().plusMonths(shiftMonth).format(DateTimeFormatter.ofPattern("MM"));
+    }
+
+    public static String generateInvalidMonth() {
+        int invalidMonthInt = faker.number().numberBetween(13, 99);
+        String invalidMonth = String.valueOf(invalidMonthInt);
+        return invalidMonth;
     }
 
     public static String generateYear() {
         return LocalDate.now().plusYears(5).format(DateTimeFormatter.ofPattern("yy"));
     }
 
+    public static String generateInvalidYear() {
+        int invalidYearInt = faker.number().numberBetween(28, 99);
+        String invalidYear = String.valueOf(invalidYearInt);
+        return invalidYear;
+    }
+
+    public static String generatePastYear(int shiftYear) {
+        return LocalDate.now().minusYears(shiftYear).format(DateTimeFormatter.ofPattern("yy"));
+    }
+
     public static String generateCVV() {
         return faker.numerify("###");
+    }
+
+    public static String generateInvalidCVV() {
+        return faker.numerify("##");
     }
 
     public static String approvedCardNumber() {
@@ -68,12 +164,63 @@ public class DataHelper {
         return "4444 4444 4444 4442";
     }
 
-    public static approvedCardInfo generateCardHolder() {
-        return new approvedCardInfo(generateCardHolderName(), generateMonth(5), generateYear(), generateCVV(), approvedCardNumber());
+    public static String generateRandomCardNumber() {
+        String randomCard = faker.numerify("################");
+        return randomCard;
     }
 
-    public static declinedCardInfo generateAnotherCardHolder() {
-        return new declinedCardInfo(generateCardHolderName(), generateMonth(5), generateYear(), generateCVV(), declinedCardNumber());
+    public static String getApprovedStatus() {
+        String status = "APPROVED";
+        return status;
+    }
+
+    public static String getDeclinedStatus() {
+        String status = "DECLINED";
+        return status;
+    }
+
+    public static approvedCardWithValidInformation generateApprovedCardWithValidInformation() {
+        return new approvedCardWithValidInformation(approvedCardNumber(), generateMonth(5), generateYear(), generateCardHolderName(), generateCVV());
+    }
+
+    public static declinedCardWithValidInformation generateDeclinedCardWithValidInformation() {
+        return new declinedCardWithValidInformation(declinedCardNumber(), generateMonth(5), generateYear(), generateCardHolderName(), generateCVV());
+    }
+
+    public static randomCardInfo generateCardWithRandomNumber() {
+        return new randomCardInfo(generateRandomCardNumber(), generateMonth(5), generateYear(), generateCardHolderName(), generateCVV());
+    }
+
+    public static approvedCardWithInvalidMonth generateApprovedCardWithInvalidMonth() {
+        return new approvedCardWithInvalidMonth(approvedCardNumber(), generateInvalidMonth(), generateYear(), generateCardHolderName(), generateCVV());
+    }
+
+    public static approvedCardWithInvalidYear generateApprovedCardWithInvalidYear() {
+        return new approvedCardWithInvalidYear(approvedCardNumber(), generateMonth(5), generateInvalidYear(), generateCardHolderName(), generateCVV());
+    }
+
+    public static approvedCardWithPastYear generateApprovedCardWithPastYear() {
+        return new approvedCardWithPastYear(approvedCardNumber(), generateMonth(5), generatePastYear(1), generateCardHolderName(), generateCVV());
+    }
+
+    public static approvedCardWithEmptyCardHolder generateApprovedCardWithEmptyCardHolder() {
+        return new approvedCardWithEmptyCardHolder(approvedCardNumber(), generateMonth(5), generatePastYear(1), generateEmptyString(), generateCVV());
+    }
+
+    public static approvedCardWithInvalidCVV generateApprovedCardWithInvalidCVV() {
+        return new approvedCardWithInvalidCVV(approvedCardNumber(), generateMonth(5), generateYear(), generateCardHolderName(), generateInvalidCVV());
+    }
+
+    public static approvedCardWithEmptyMonth generateApprovedCardWithEmptyMonth() {
+        return new approvedCardWithEmptyMonth(approvedCardNumber(), generateEmptyString(), generateYear(), generateCardHolderName(), generateCVV());
+    }
+
+    public static approvedCardWithEmptyYear generateApprovedCardWithEmptyYear() {
+        return new approvedCardWithEmptyYear(approvedCardNumber(), generateMonth(5), generateEmptyString(), generateCardHolderName(), generateCVV());
+    }
+
+    public static approvedCardWithEmptyCVV generateApprovedCardWithEmptyCVV() {
+        return new approvedCardWithEmptyCVV(approvedCardNumber(), generateMonth(5), generateYear(), generateCardHolderName(), generateEmptyString());
     }
 
 }
