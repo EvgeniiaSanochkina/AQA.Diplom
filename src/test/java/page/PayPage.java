@@ -22,7 +22,7 @@ public class PayPage {
     private SelenideElement invalidExpirationDate = $(withText("Неверно указан срок действия карты"));
     private SelenideElement pastYear = $(withText("Истёк срок действия карты"));
     private SelenideElement emptyCardHolder = $(withText("Поле обязательно для заполнения"));
-    private SelenideElement emptyString = $(withText("Неверный формат"));
+    private SelenideElement invalidString = $(withText("Неверный формат"));
     private SelenideElement notificationSuccess = $(By.className("notification_status_ok"));
     private SelenideElement notificationError = $(By.className("notification_status_error"));
 
@@ -39,7 +39,7 @@ public class PayPage {
     public void notificationEmptyCardHolder() {
         emptyCardHolder.shouldBe(Condition.visible);
     }
-    public void notificationEmptyString() { emptyString.shouldBe(Condition.visible); }
+    public void notificationInvalidString() { invalidString.shouldBe(Condition.visible); }
 
     public PayPage validCard(DataHelper.approvedCardWithValidInformation cardInfo) {
         cardNumber.setValue(cardInfo.getCardNumber());
@@ -132,6 +132,33 @@ public class PayPage {
         return new PayPage();
     }
     public PayPage declinedCardWithValidInformation(DataHelper.declinedCardWithValidInformation cardInfo) {
+        cardNumber.setValue(cardInfo.getCardNumber());
+        month.setValue(cardInfo.getMonth());
+        year.setValue(cardInfo.getYear());
+        cardHolder.setValue(cardInfo.getCardHolder());
+        cvc.setValue(cardInfo.getCvv());
+        continueButton.click();
+        return new PayPage();
+    }
+    public PayPage approvedCardWithRusCardHolder(DataHelper.approvedCardWithRusCardHolder cardInfo) {
+        cardNumber.setValue(cardInfo.getCardNumber());
+        month.setValue(cardInfo.getMonth());
+        year.setValue(cardInfo.getYear());
+        cardHolder.setValue(cardInfo.getCardHolder());
+        cvc.setValue(cardInfo.getCvv());
+        continueButton.click();
+        return new PayPage();
+    }
+    public PayPage approvedCardWithCardHolderWithNumbers(DataHelper.approvedCardWithCardHolderWithNumbers cardInfo) {
+        cardNumber.setValue(cardInfo.getCardNumber());
+        month.setValue(cardInfo.getMonth());
+        year.setValue(cardInfo.getYear());
+        cardHolder.setValue(cardInfo.getCardHolder());
+        cvc.setValue(cardInfo.getCvv());
+        continueButton.click();
+        return new PayPage();
+    }
+    public PayPage approvedCardWithCardHolderNameOnly(DataHelper.approvedCardWithCardHolderNameOnly cardInfo) {
         cardNumber.setValue(cardInfo.getCardNumber());
         month.setValue(cardInfo.getMonth());
         year.setValue(cardInfo.getYear());

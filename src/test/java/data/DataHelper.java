@@ -12,6 +12,7 @@ import java.time.LocalDate;
 public class DataHelper {
 
     private static Faker faker = new Faker(new Locale("en"));
+    private static Faker fakerRUS = new Faker(new Locale("ru"));
 
     private DataHelper() {
     }
@@ -69,6 +70,30 @@ public class DataHelper {
         private String cardHolder;
         private String cvv;
     }
+    @Value
+    public static class approvedCardWithRusCardHolder {
+        private String cardNumber;
+        private String month;
+        private String year;
+        private String cardHolder;
+        private String cvv;
+    }
+    @Value
+    public static class approvedCardWithCardHolderNameOnly {
+        private String cardNumber;
+        private String month;
+        private String year;
+        private String cardHolder;
+        private String cvv;
+    }
+    @Value
+    public static class approvedCardWithCardHolderWithNumbers {
+        private String cardNumber;
+        private String month;
+        private String year;
+        private String cardHolder;
+        private String cvv;
+    }
 
     @Value
     public static class approvedCardWithInvalidCVV {
@@ -118,6 +143,20 @@ public class DataHelper {
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
         return firstName + " " + lastName;
+    }
+    public static String generateCardHolderWithNameOnly() {
+        String firstName = faker.name().firstName();
+        return firstName;
+    }
+    public static String generateRusCardHolderName() {
+        String firstName = fakerRUS.name().firstName();
+        String lastName = fakerRUS.name().lastName();
+        return firstName + " " + lastName;
+    }
+    public static String generateCardHolderNameWithNumbers() {
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
+        return firstName + " " + lastName + " " + faker.numerify("#");
     }
 
     public static String generateEmptyString() {
@@ -204,7 +243,16 @@ public class DataHelper {
     }
 
     public static approvedCardWithEmptyCardHolder generateApprovedCardWithEmptyCardHolder() {
-        return new approvedCardWithEmptyCardHolder(approvedCardNumber(), generateMonth(5), generatePastYear(1), generateEmptyString(), generateCVV());
+        return new approvedCardWithEmptyCardHolder(approvedCardNumber(), generateMonth(5), generateYear(), generateEmptyString(), generateCVV());
+    }
+    public static approvedCardWithCardHolderNameOnly generateApprovedCardWithCardHolderNameOnly() {
+        return new approvedCardWithCardHolderNameOnly(approvedCardNumber(), generateMonth(5), generateYear(), generateCardHolderWithNameOnly(), generateCVV());
+    }
+    public static approvedCardWithRusCardHolder generateApprovedCardWithRusCardHolder() {
+        return new approvedCardWithRusCardHolder(approvedCardNumber(), generateMonth(5), generateYear(), generateRusCardHolderName(), generateCVV());
+    }
+    public static approvedCardWithCardHolderWithNumbers generateApprovedCardWithCardHolderWithNumbers() {
+        return new approvedCardWithCardHolderWithNumbers(approvedCardNumber(), generateMonth(5), generateYear(), generateCardHolderNameWithNumbers(), generateCVV());
     }
 
     public static approvedCardWithInvalidCVV generateApprovedCardWithInvalidCVV() {
