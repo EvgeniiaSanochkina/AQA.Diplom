@@ -21,7 +21,8 @@ public class TestPayPageSQL {
         var expected = DataHelper.getApprovedStatus();
         var actual = DBHelper.getPayStatus() ;
         assertEquals (expected, actual);
-        // тест прошел
+        // postgresql тест прошел
+        // sql тест прошел
     }
     @Test
     void testBuyUsingApprovedCardWithInvalidMonth() {
@@ -94,7 +95,8 @@ public class TestPayPageSQL {
         var cardInfo = DataHelper.generateDeclinedCardWithValidInformation();
         payPage.declinedCardWithValidInformation(cardInfo);
         payPage.notificationError();
-        //не прошел тест
+        //postgresql не прошел тест
+        //sql не прошел тест
     }
     @Test
     void testBuyUsingDeclinedCardWithValidInformationAndReturnDeclinedStatus() {
@@ -105,8 +107,8 @@ public class TestPayPageSQL {
         var expected = DataHelper.getDeclinedStatus();
         var actual = DBHelper.getPayStatus();
         assertEquals (expected, actual);
-        //прошел тест
-        //постгрескл не прошел
+        //sql прошел тест
+        //postgresql прошел тест
     }
     @Test
     void testBuyUsingCardWithRandomNumber() {
@@ -118,7 +120,8 @@ public class TestPayPageSQL {
         var expected = DataHelper.getDeclinedStatus();
         var actual = DBHelper.getPayStatus() ;
         assertEquals (expected, actual);
-        //прошел тест
+        //postgresql прошел тест
+        //sql прошел тест
     }
     @Test
     void testBuyCreditUsingApprovedCardWithValidInformationAndReturnSuccessNotification() {
@@ -127,7 +130,8 @@ public class TestPayPageSQL {
         var cardInfo = DataHelper.generateApprovedCardWithValidInformation();
         payPage.validCard(cardInfo);
         payPage.notificationSuccess();
-        //прошел тест
+        //postgresql прошел тест
+        //sql прошел тест
     }
     @Test
     void testBuyCreditUsingApprovedCardWithValidInformationAndReturnApprovedStatus() {
@@ -138,7 +142,8 @@ public class TestPayPageSQL {
         var expected = DataHelper.getApprovedStatus();
         var actual = DBHelper.getPayCreditStatus();
         assertEquals (expected, actual);
-        //не прошел тест
+        //postgresql не прошел тест
+        //sql не прошел тест
     }
     @Test
     void testBuyCreditUsingApprovedCardWithInvalidMonth() {
@@ -211,7 +216,8 @@ public class TestPayPageSQL {
         var cardInfo = DataHelper.generateDeclinedCardWithValidInformation();
         payPage.declinedCardWithValidInformation(cardInfo);
         payPage.notificationError();
-        //не прошел тест
+        //postgresql не прошел тест
+        //sql не прошел тест
     }
     @Test
     void testBuyCreditUsingDeclinedCardWithValidInformationAndReturnDeclinedStatus() {
@@ -222,8 +228,8 @@ public class TestPayPageSQL {
         var expected = DataHelper.getDeclinedStatus();
         var actual = DBHelper.getPayCreditStatus();
         assertEquals (expected, actual);
-        //прошел тест
-        // не прошел тест
+        //postgresql прошел тест
+        // sql прошел тест
     }
     @Test
     void testBuyCreditUsingCardWithRandomNumber() {
@@ -235,6 +241,7 @@ public class TestPayPageSQL {
         var expected = DataHelper.getDeclinedStatus();
         var actual = DBHelper.getPayCreditStatus();
         assertEquals (expected, actual);
-        // прошел тест
+        // postgresql прошел тест
+        // sql прошел тест
     }
 }
