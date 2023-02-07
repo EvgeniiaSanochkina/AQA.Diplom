@@ -15,8 +15,8 @@ import java.sql.SQLException;
 import static java.sql.DriverManager.getConnection;
 
 public class DBHelper {
- //   private static String url = System.getProperty("url");
- // private static String user = System.getProperty("user");
+    //   private static String url = System.getProperty("url");
+    // private static String user = System.getProperty("user");
     //  private static String password = System.getProperty("password");
 
     // private DBHelper() {
@@ -27,7 +27,7 @@ public class DBHelper {
     public static String getPayStatus() {
         var runner = new QueryRunner();
         var statusSQL = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1;";
-       var conn = getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
+        var conn = getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
         // var conn = getConnection(url, user, password);
         return runner.query(conn, statusSQL, new ScalarHandler<>());
     }
@@ -35,10 +35,17 @@ public class DBHelper {
     @SneakyThrows
     public static String getPayCreditStatus() {
         var runner = new QueryRunner();
-        var statusSQL = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1;";
-       var conn = getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
-        //var conn = getConnection(url, user, password);
+        var statusSQL = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1;";
+        var conn = getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
         return runner.query(conn, statusSQL, new ScalarHandler<>());
     }
 
+    @SneakyThrows
+    public static void cleanDataBase() {
+        var conn = getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
+        var runner = new QueryRunner();
+        runner.execute(conn, "DELETE FROM payment_entity");
+        runner.execute(conn, "DELETE FROM credit_request_entity");
+        runner.execute(conn, "DELETE FROM order_entity");
+    }
 }
