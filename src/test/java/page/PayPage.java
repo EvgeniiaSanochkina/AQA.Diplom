@@ -2,6 +2,7 @@ package page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import data.Card;
 import data.DataHelper;
 
 import org.openqa.selenium.By;
@@ -41,131 +42,14 @@ public class PayPage {
     }
     public void notificationInvalidString() { invalidString.shouldBe(Condition.visible); }
 
-    public PayPage validCard(DataHelper.approvedCardWithValidInformation cardInfo) {
+    public void card (Card cardInfo) {
         cardNumber.setValue(cardInfo.getCardNumber());
         month.setValue(cardInfo.getMonth());
         year.setValue(cardInfo.getYear());
         cardHolder.setValue(cardInfo.getCardHolder());
         cvc.setValue(cardInfo.getCvv());
         continueButton.click();
-        return new PayPage();
-    }
-    public PayPage randomCard(DataHelper.randomCardInfo cardInfo) {
-        cardNumber.setValue(cardInfo.getCardNumber());
-        month.setValue(cardInfo.getMonth());
-        year.setValue(cardInfo.getYear());
-        cardHolder.setValue(cardInfo.getCardHolder());
-        cvc.setValue(cardInfo.getCvv());
-        continueButton.click();
-        return new PayPage();
-    }
-    public PayPage approvedCardWithInvalidMonth(DataHelper.approvedCardWithInvalidMonth cardInfo) {
-        cardNumber.setValue(cardInfo.getCardNumber());
-        month.setValue(cardInfo.getMonth());
-        year.setValue(cardInfo.getYear());
-        cardHolder.setValue(cardInfo.getCardHolder());
-        cvc.setValue(cardInfo.getCvv());
-        continueButton.click();
-        return new PayPage();
-    }
-    public PayPage approvedCardWithInvalidYear(DataHelper.approvedCardWithInvalidYear cardInfo) {
-        cardNumber.setValue(cardInfo.getCardNumber());
-        month.setValue(cardInfo.getMonth());
-        year.setValue(cardInfo.getYear());
-        cardHolder.setValue(cardInfo.getCardHolder());
-        cvc.setValue(cardInfo.getCvv());
-        continueButton.click();
-        return new PayPage();
-    }
-    public PayPage approvedCardWithPastYear(DataHelper.approvedCardWithPastYear cardInfo) {
-        cardNumber.setValue(cardInfo.getCardNumber());
-        month.setValue(cardInfo.getMonth());
-        year.setValue(cardInfo.getYear());
-        cardHolder.setValue(cardInfo.getCardHolder());
-        cvc.setValue(cardInfo.getCvv());
-        continueButton.click();
-        return new PayPage();
-    }
-    public PayPage approvedCardWithEmptyCardHolder(DataHelper.approvedCardWithEmptyCardHolder cardInfo) {
-        cardNumber.setValue(cardInfo.getCardNumber());
-        month.setValue(cardInfo.getMonth());
-        year.setValue(cardInfo.getYear());
-        cardHolder.setValue(cardInfo.getCardHolder());
-        cvc.setValue(cardInfo.getCvv());
-        continueButton.click();
-        return new PayPage();
-    }
-    public PayPage approvedCardWithInvalidCVV(DataHelper.approvedCardWithInvalidCVV cardInfo) {
-        cardNumber.setValue(cardInfo.getCardNumber());
-        month.setValue(cardInfo.getMonth());
-        year.setValue(cardInfo.getYear());
-        cardHolder.setValue(cardInfo.getCardHolder());
-        cvc.setValue(cardInfo.getCvv());
-        continueButton.click();
-        return new PayPage();
-    }
-    public PayPage approvedCardWithEmptyMonth(DataHelper.approvedCardWithEmptyMonth cardInfo) {
-        cardNumber.setValue(cardInfo.getCardNumber());
-        month.setValue(cardInfo.getMonth());
-        year.setValue(cardInfo.getYear());
-        cardHolder.setValue(cardInfo.getCardHolder());
-        cvc.setValue(cardInfo.getCvv());
-        continueButton.click();
-        return new PayPage();
-    }
-    public PayPage approvedCardWithEmptyYear(DataHelper.approvedCardWithEmptyYear cardInfo) {
-        cardNumber.setValue(cardInfo.getCardNumber());
-        month.setValue(cardInfo.getMonth());
-        year.setValue(cardInfo.getYear());
-        cardHolder.setValue(cardInfo.getCardHolder());
-        cvc.setValue(cardInfo.getCvv());
-        continueButton.click();
-        return new PayPage();
-    }
-    public PayPage approvedCardWithEmptyCVV(DataHelper.approvedCardWithEmptyCVV cardInfo) {
-        cardNumber.setValue(cardInfo.getCardNumber());
-        month.setValue(cardInfo.getMonth());
-        year.setValue(cardInfo.getYear());
-        cardHolder.setValue(cardInfo.getCardHolder());
-        cvc.setValue(cardInfo.getCvv());
-        continueButton.click();
-        return new PayPage();
-    }
-    public PayPage declinedCardWithValidInformation(DataHelper.declinedCardWithValidInformation cardInfo) {
-        cardNumber.setValue(cardInfo.getCardNumber());
-        month.setValue(cardInfo.getMonth());
-        year.setValue(cardInfo.getYear());
-        cardHolder.setValue(cardInfo.getCardHolder());
-        cvc.setValue(cardInfo.getCvv());
-        continueButton.click();
-        return new PayPage();
-    }
-    public PayPage approvedCardWithRusCardHolder(DataHelper.approvedCardWithRusCardHolder cardInfo) {
-        cardNumber.setValue(cardInfo.getCardNumber());
-        month.setValue(cardInfo.getMonth());
-        year.setValue(cardInfo.getYear());
-        cardHolder.setValue(cardInfo.getCardHolder());
-        cvc.setValue(cardInfo.getCvv());
-        continueButton.click();
-        return new PayPage();
-    }
-    public PayPage approvedCardWithCardHolderWithNumbers(DataHelper.approvedCardWithCardHolderWithNumbers cardInfo) {
-        cardNumber.setValue(cardInfo.getCardNumber());
-        month.setValue(cardInfo.getMonth());
-        year.setValue(cardInfo.getYear());
-        cardHolder.setValue(cardInfo.getCardHolder());
-        cvc.setValue(cardInfo.getCvv());
-        continueButton.click();
-        return new PayPage();
-    }
-    public PayPage approvedCardWithCardHolderNameOnly(DataHelper.approvedCardWithCardHolderNameOnly cardInfo) {
-        cardNumber.setValue(cardInfo.getCardNumber());
-        month.setValue(cardInfo.getMonth());
-        year.setValue(cardInfo.getYear());
-        cardHolder.setValue(cardInfo.getCardHolder());
-        cvc.setValue(cardInfo.getCvv());
-        continueButton.click();
-        return new PayPage();
+       //return new PayPage();
     }
 
 }

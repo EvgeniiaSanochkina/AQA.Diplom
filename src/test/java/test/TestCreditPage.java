@@ -14,8 +14,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static data.DBHelper.cleanDataBase;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-public class TestPayPage {
+public class TestCreditPage {
     @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
@@ -33,111 +32,94 @@ public class TestPayPage {
         cleanDataBase();
     }
     @Test
-    void testBuyUsingApprovedCardWithValidInformationAndReturnApprovedStatus() {
-        var payPage = new MainPage().buyDebit();
+    void testBuyCreditUsingApprovedCardWithValidInformationAndReturnSuccessNotification() {
+        var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithValidInformation();
         payPage.card(cardInfo);
         payPage.notificationSuccess();
-        var expected = DataHelper.getApprovedStatus();
-        var actual = DBHelper.getPayStatus();
-        assertEquals(expected, actual);
-        // postgresql тест прошел
-        // sql тест прошел
+        //postgresql прошел тест
+        //sql прошел тест
     }
 
     @Test
-    void testBuyUsingApprovedCardWithInvalidMonth() {
-        var payPage = new MainPage().buyDebit();
+    void testBuyCreditUsingApprovedCardWithValidInformationAndReturnApprovedStatus() {
+        var payPage = new MainPage().buyCredit();
+        var cardInfo = DataHelper.generateApprovedCardWithValidInformation();
+        payPage.card(cardInfo);
+        var expected = DataHelper.getApprovedStatus();
+        var actual = DBHelper.getPayCreditStatus();
+        assertEquals(expected, actual);
+        //postgresql не прошел тест
+        //sql не прошел тест
+    }
+
+    @Test
+    void testBuyCreditUsingApprovedCardWithInvalidMonth() {
+        var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithInvalidMonth();
         payPage.card(cardInfo);
         payPage.notificationInvalidExpirationDate();
     }
 
     @Test
-    void testBuyUsingApprovedCardWithInvalidYear() {
-        var payPage = new MainPage().buyDebit();
+    void testBuyCreditUsingApprovedCardWithInvalidYear() {
+        var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithInvalidYear();
         payPage.card(cardInfo);
         payPage.notificationInvalidExpirationDate();
     }
 
     @Test
-    void testBuyUsingApprovedCardWithPastYear() {
-        var payPage = new MainPage().buyDebit();
+    void testBuyCreditUsingApprovedCardWithPastYear() {
+        var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithPastYear();
         payPage.card(cardInfo);
         payPage.notificationPastYear();
     }
 
     @Test
-    void testBuyUsingApprovedCardWithRusCardHolder() {
-        var payPage = new MainPage().buyDebit();
-        var cardInfo = DataHelper.generateApprovedCardWithRusCardHolder();
-        payPage.card(cardInfo);
-        payPage.notificationInvalidString();
-    }
-
-    //не прошел тест
-    @Test
-    void testBuyUsingApprovedCardWithCardHolderWithNumbers() {
-        var payPage = new MainPage().buyDebit();
-        var cardInfo = DataHelper.generateApprovedCardWithCardHolderWithNumbers();
-        payPage.card(cardInfo);
-        payPage.notificationInvalidString();
-    }
-
-    @Test
-    void testBuyUsingApprovedCardWithCardHolderNameOnly() {
-        var payPage = new MainPage().buyDebit();
-        var cardInfo = DataHelper.generateApprovedCardWithCardHolderNameOnly();
-        payPage.card(cardInfo);
-        payPage.notificationInvalidString();
-    }
-
-    //не прошел тест
-    @Test
-    void testBuyUsingApprovedCardWithInvalidCVV() {
-        var payPage = new MainPage().buyDebit();
-        var cardInfo = DataHelper.generateApprovedCardWithInvalidCVV();
-        payPage.card(cardInfo);
-        payPage.notificationInvalidString();
-    }
-
-    @Test
-    void testBuyUsingApprovedCardWithEmptyMonth() {
-        var payPage = new MainPage().buyDebit();
-        var cardInfo = DataHelper.generateApprovedCardWithEmptyMonth();
-        payPage.card(cardInfo);
-        payPage.notificationInvalidString();
-    }
-
-    @Test
-    void testBuyUsingApprovedCardWithEmptyYear() {
-        var payPage = new MainPage().buyDebit();
-        var cardInfo = DataHelper.generateApprovedCardWithEmptyYear();
-        payPage.card(cardInfo);
-        payPage.notificationInvalidString();
-    }
-
-    @Test
-    void testBuyUsingApprovedCardWithEmptyCardHolder() {
-        var payPage = new MainPage().buyDebit();
+    void testBuyCreditUsingApprovedCardWithEmptyCardHolder() {
+        var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithEmptyCardHolder();
         payPage.card(cardInfo);
         payPage.notificationEmptyCardHolder();
     }
 
     @Test
-    void testBuyUsingApprovedCardWithEmptyCVV() {
-        var payPage = new MainPage().buyDebit();
+    void testBuyCreditUsingApprovedCardWithInvalidCVV() {
+        var payPage = new MainPage().buyCredit();
+        var cardInfo = DataHelper.generateApprovedCardWithInvalidCVV();
+        payPage.card(cardInfo);
+        payPage.notificationInvalidString();
+    }
+
+    @Test
+    void testBuyCreditUsingApprovedCardWithEmptyMonth() {
+        var payPage = new MainPage().buyCredit();
+        var cardInfo = DataHelper.generateApprovedCardWithEmptyMonth();
+        payPage.card(cardInfo);
+        payPage.notificationInvalidString();
+    }
+
+    @Test
+    void testBuyCreditUsingApprovedCardWithEmptyYear() {
+        var payPage = new MainPage().buyCredit();
+        var cardInfo = DataHelper.generateApprovedCardWithEmptyYear();
+        payPage.card(cardInfo);
+        payPage.notificationInvalidString();
+    }
+
+    @Test
+    void testBuyCreditUsingApprovedCardWithEmptyCVV() {
+        var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithEmptyCVV();
         payPage.card(cardInfo);
         payPage.notificationInvalidString();
     }
 
     @Test
-    void testBuyUsingDeclinedCardWithValidInformationAndReturnErrorNotification() {
-        var payPage = new MainPage().buyDebit();
+    void testBuyCreditUsingDeclinedCardWithValidInformationAndReturnErrorNotification() {
+        var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateDeclinedCardWithValidInformation();
         payPage.card(cardInfo);
         payPage.notificationError();
@@ -146,27 +128,36 @@ public class TestPayPage {
     }
 
     @Test
-    void testBuyUsingDeclinedCardWithValidInformationAndReturnDeclinedStatus() {
-        var payPage = new MainPage().buyDebit();
+    void testBuyCreditUsingDeclinedCardWithValidInformationAndReturnDeclinedStatus() {
+        var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateDeclinedCardWithValidInformation();
         payPage.card(cardInfo);
         var expected = DataHelper.getDeclinedStatus();
-        var actual = DBHelper.getPayStatus();
+        var actual = DBHelper.getPayCreditStatus();
         assertEquals(expected, actual);
-        //?sql прошел тест
-        //postgresql прошел тест
+        //postgresql не прошел тест
+        // sql не прошел тест
     }
 
     @Test
-    void testBuyUsingCardWithRandomNumber() {
-        var payPage = new MainPage().buyDebit();
+    void testBuyCreditUsingCardWithRandomNumberAndReturnErrorNotification() {
+        var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateCardWithRandomNumber();
         payPage.card(cardInfo);
         payPage.notificationError();
+        // postgresql прошел тест
+        // sql прошел тест
+    }
+
+    @Test
+    void testBuyCreditUsingCardWithRandomNumberAndReturnDeclinedStatus() {
+        var payPage = new MainPage().buyCredit();
+        var cardInfo = DataHelper.generateCardWithRandomNumber();
+        payPage.card(cardInfo);
         var expected = DataHelper.getDeclinedStatus();
-        var actual = DBHelper.getPayStatus();
+        var actual = DBHelper.getPayCreditStatus();
         assertEquals(expected, actual);
-        //postgresql прошел тест
-        //sql прошел тест
+        // postgresql не прошел тест
+        // sql прошел не тест
     }
 }
