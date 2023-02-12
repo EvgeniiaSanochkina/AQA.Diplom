@@ -13,6 +13,7 @@ import page.MainPage;
 import static com.codeborne.selenide.Selenide.open;
 import static data.DBHelper.cleanDataBase;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static test.TestPayPage.localhost;
 
 public class TestCreditPage {
     @BeforeAll
@@ -33,6 +34,7 @@ public class TestCreditPage {
     }
     @Test
     void testBuyCreditUsingApprovedCardWithValidInformationAndReturnSuccessNotification() {
+        open(localhost);
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithValidInformation();
         payPage.card(cardInfo);
@@ -43,6 +45,7 @@ public class TestCreditPage {
 
     @Test
     void testBuyCreditUsingApprovedCardWithValidInformationAndReturnApprovedStatus() {
+        open(localhost);
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithValidInformation();
         payPage.card(cardInfo);
@@ -55,6 +58,7 @@ public class TestCreditPage {
 
     @Test
     void testBuyCreditUsingApprovedCardWithInvalidMonth() {
+        open(localhost);
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithInvalidMonth();
         payPage.card(cardInfo);
@@ -63,6 +67,7 @@ public class TestCreditPage {
 
     @Test
     void testBuyCreditUsingApprovedCardWithInvalidYear() {
+        open(localhost);
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithInvalidYear();
         payPage.card(cardInfo);
@@ -71,6 +76,7 @@ public class TestCreditPage {
 
     @Test
     void testBuyCreditUsingApprovedCardWithPastYear() {
+        open(localhost);
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithPastYear();
         payPage.card(cardInfo);
@@ -79,6 +85,7 @@ public class TestCreditPage {
 
     @Test
     void testBuyCreditUsingApprovedCardWithEmptyCardHolder() {
+        open(localhost);
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithEmptyCardHolder();
         payPage.card(cardInfo);
@@ -87,6 +94,7 @@ public class TestCreditPage {
 
     @Test
     void testBuyCreditUsingApprovedCardWithInvalidCVV() {
+        open(localhost);
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithInvalidCVV();
         payPage.card(cardInfo);
@@ -95,6 +103,7 @@ public class TestCreditPage {
 
     @Test
     void testBuyCreditUsingApprovedCardWithEmptyMonth() {
+        open(localhost);
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithEmptyMonth();
         payPage.card(cardInfo);
@@ -103,6 +112,7 @@ public class TestCreditPage {
 
     @Test
     void testBuyCreditUsingApprovedCardWithEmptyYear() {
+        open(localhost);
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithEmptyYear();
         payPage.card(cardInfo);
@@ -111,6 +121,7 @@ public class TestCreditPage {
 
     @Test
     void testBuyCreditUsingApprovedCardWithEmptyCVV() {
+        open(localhost);
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithEmptyCVV();
         payPage.card(cardInfo);
@@ -119,6 +130,7 @@ public class TestCreditPage {
 
     @Test
     void testBuyCreditUsingDeclinedCardWithValidInformationAndReturnErrorNotification() {
+        open(localhost);
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateDeclinedCardWithValidInformation();
         payPage.card(cardInfo);
@@ -129,6 +141,7 @@ public class TestCreditPage {
 
     @Test
     void testBuyCreditUsingDeclinedCardWithValidInformationAndReturnDeclinedStatus() {
+        open(localhost);
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateDeclinedCardWithValidInformation();
         payPage.card(cardInfo);
@@ -141,6 +154,7 @@ public class TestCreditPage {
 
     @Test
     void testBuyCreditUsingCardWithRandomNumberAndReturnErrorNotification() {
+        open(localhost);
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateCardWithRandomNumber();
         payPage.card(cardInfo);
@@ -151,13 +165,41 @@ public class TestCreditPage {
 
     @Test
     void testBuyCreditUsingCardWithRandomNumberAndReturnDeclinedStatus() {
+        open(localhost);
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateCardWithRandomNumber();
         payPage.card(cardInfo);
         var expected = DataHelper.getDeclinedStatus();
         var actual = DBHelper.getPayCreditStatus();
         assertEquals(expected, actual);
-        // postgresql не прошел тест
-        // sql прошел не тест
+        // не прошел тест
+
+    }
+
+    @Test
+    void testBuyUsingCardWithIncompleteNumber() {
+        open(localhost);
+        var payPage = new MainPage().buyCredit();
+        var cardInfo = DataHelper.generateCardWithIncompleteCardNumber();
+        payPage.card(cardInfo);
+        payPage.notificationInvalidString();
+    }
+
+    @Test
+    void testBuyUsingApprovedCardWithLongCardHolderName() {
+        open(localhost);
+        var payPage = new MainPage().buyCredit();
+        var cardInfo = DataHelper.generateApprovedCardWithLongCardHolderName();
+        payPage.card(cardInfo);
+        payPage.notificationInvalidString();
+    }
+
+    @Test
+    void testBuyUsingApprovedCardWithMonth00() {
+        open(localhost);
+        var payPage = new MainPage().buyCredit();
+        var cardInfo = DataHelper.generateApprovedCardWithMonth00();
+        payPage.card(cardInfo);
+        payPage.notificationInvalidString();
     }
 }

@@ -36,34 +36,21 @@ public class DataHelper {
         String lastName = faker.name().lastName();
         return firstName + " " + lastName + " " + faker.numerify("#");
     }
-
+    public static String generateLongCardHolderNameUsing65Letters() {
+        return "DavidDavidDavidDavidDavidDavidDavidDavidDavidDavidDavidDavidDavid";
+    }
     public static String generateEmptyString() {
         return "";
     }
-
     public static String generateMonth(int shiftMonth) {
         return LocalDate.now().plusMonths(shiftMonth).format(DateTimeFormatter.ofPattern("MM"));
     }
-
-  //  public static String generateInvalidMonth() {
-     //   int invalidMonthInt = faker.number().numberBetween(13, 99);
-    //    String invalidMonth = String.valueOf(invalidMonthInt);
-     //   return invalidMonth;
-   // }
-
+    public static String generateMonth00() {
+        return "00";
+    }
     public static String generateYear(int shiftYear) {
         return LocalDate.now().plusYears(shiftYear).format(DateTimeFormatter.ofPattern("yy"));
     }
-
-  //  public static String generateInvalidYear() {
-     //   int invalidYearInt = faker.number().numberBetween(28, 99);
-      //  String invalidYear = String.valueOf(invalidYearInt);
-     //   return invalidYear;
-   // }
-
-  //  public static String generatePastYear(int shiftYear) {
-      //  return LocalDate.now().minusYears(shiftYear).format(DateTimeFormatter.ofPattern("yy"));
-   // }
 
     public static String generateCVV() {
         return faker.numerify("###");
@@ -86,6 +73,10 @@ public class DataHelper {
         return randomCard;
     }
 
+    public static String incompleteCardNumber() {
+        return "4444 4444 4444 444";
+    }
+
     public static String getApprovedStatus() {
         String status = "APPROVED";
         return status;
@@ -97,19 +88,23 @@ public class DataHelper {
     }
 
     public static Card generateApprovedCardWithValidInformation() {
-        return new Card(approvedCardNumber(), generateMonth(5), generateYear(3), generateCardHolderName(), generateCVV());
+        return new Card(approvedCardNumber(), generateMonth(0), generateYear(3), generateCardHolderName(), generateCVV());
     }
 
     public static Card generateDeclinedCardWithValidInformation() {
-        return new Card(declinedCardNumber(), generateMonth(5), generateYear(3), generateCardHolderName(), generateCVV());
+        return new Card(declinedCardNumber(), generateMonth(0), generateYear(3), generateCardHolderName(), generateCVV());
     }
 
     public static Card generateCardWithRandomNumber() {
-        return new Card(generateRandomCardNumber(), generateMonth(5), generateYear(3), generateCardHolderName(), generateCVV());
+        return new Card(generateRandomCardNumber(), generateMonth(0), generateYear(3), generateCardHolderName(), generateCVV());
     }
 
     public static Card generateApprovedCardWithInvalidMonth() {
         return new Card(approvedCardNumber(), generateMonth(12), generateYear(0), generateCardHolderName(), generateCVV());
+    }
+
+    public static Card generateApprovedCardWithMonth00() {
+        return new Card(approvedCardNumber(), generateMonth00(), generateYear(0), generateCardHolderName(), generateCVV());
     }
 
     public static Card generateApprovedCardWithInvalidYear() {
@@ -121,32 +116,39 @@ public class DataHelper {
     }
 
     public static Card generateApprovedCardWithEmptyCardHolder() {
-        return new Card (approvedCardNumber(), generateMonth(5), generateYear(3), generateEmptyString(), generateCVV());
+        return new Card (approvedCardNumber(), generateMonth(0), generateYear(1), generateEmptyString(), generateCVV());
     }
     public static Card generateApprovedCardWithCardHolderNameOnly() {
-        return new Card (approvedCardNumber(), generateMonth(5), generateYear(3), generateCardHolderWithNameOnly(), generateCVV());
+        return new Card (approvedCardNumber(), generateMonth(0), generateYear(1), generateCardHolderWithNameOnly(), generateCVV());
     }
     public static Card generateApprovedCardWithRusCardHolder() {
-        return new Card (approvedCardNumber(), generateMonth(5), generateYear(3), generateRusCardHolderName(), generateCVV());
+        return new Card (approvedCardNumber(), generateMonth(0), generateYear(1), generateRusCardHolderName(), generateCVV());
     }
     public static Card generateApprovedCardWithCardHolderWithNumbers() {
-        return new Card (approvedCardNumber(), generateMonth(5), generateYear(3), generateCardHolderNameWithNumbers(), generateCVV());
+        return new Card (approvedCardNumber(), generateMonth(0), generateYear(1), generateCardHolderNameWithNumbers(), generateCVV());
+    }
+    public static Card generateApprovedCardWithLongCardHolderName() {
+        return new Card (approvedCardNumber(), generateMonth(0), generateYear(1), generateLongCardHolderNameUsing65Letters(), generateCVV());
     }
 
     public static Card generateApprovedCardWithInvalidCVV() {
-        return new Card (approvedCardNumber(), generateMonth(5), generateYear(3), generateCardHolderName(), generateInvalidCVV());
+        return new Card (approvedCardNumber(), generateMonth(0), generateYear(1), generateCardHolderName(), generateInvalidCVV());
     }
 
     public static Card generateApprovedCardWithEmptyMonth() {
-        return new Card (approvedCardNumber(), generateEmptyString(), generateYear(3), generateCardHolderName(), generateCVV());
+        return new Card (approvedCardNumber(), generateEmptyString(), generateYear(1), generateCardHolderName(), generateCVV());
     }
 
     public static Card generateApprovedCardWithEmptyYear() {
-        return new Card (approvedCardNumber(), generateMonth(5), generateEmptyString(), generateCardHolderName(), generateCVV());
+        return new Card (approvedCardNumber(), generateMonth(0), generateEmptyString(), generateCardHolderName(), generateCVV());
     }
 
     public static Card generateApprovedCardWithEmptyCVV() {
-        return new Card (approvedCardNumber(), generateMonth(5), generateYear(3), generateCardHolderName(), generateEmptyString());
+        return new Card (approvedCardNumber(), generateMonth(0), generateYear(1), generateCardHolderName(), generateEmptyString());
+    }
+
+    public static Card generateCardWithIncompleteCardNumber() {
+        return new Card (incompleteCardNumber(), generateMonth(0), generateYear(1), generateCardHolderName(), generateCVV());
     }
 
 }
