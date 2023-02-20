@@ -16,7 +16,8 @@
 - успешно: 20 тк (55.55%);
 - неуспешно: 16 тк (44.45%)
 
-![img_3.png](img_3.png)
+![image](https://user-images.githubusercontent.com/88155312/218305121-d3851fde-fa07-4543-9bdf-0cb6f3cd0456.png)
+
 
 ## Дополнительные замечания
 
