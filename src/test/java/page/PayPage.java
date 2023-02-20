@@ -2,7 +2,7 @@ package page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import data.Card;
+import data.CardPattern;
 import data.DataHelper;
 
 import org.openqa.selenium.By;
@@ -42,14 +42,13 @@ public class PayPage {
     }
     public void notificationInvalidString() { invalidString.shouldBe(Condition.visible); }
 
-    public void card (Card cardInfo) {
+    public void card (CardPattern cardInfo) {
         cardNumber.setValue(cardInfo.getCardNumber());
         month.setValue(cardInfo.getMonth());
         year.setValue(cardInfo.getYear());
         cardHolder.setValue(cardInfo.getCardHolder());
         cvc.setValue(cardInfo.getCvv());
         continueButton.click();
-       //return new PayPage();
     }
 
 }

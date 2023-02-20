@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Card {
+public class CardPattern {
         private String cardNumber;
         private String month;
         private String year;
