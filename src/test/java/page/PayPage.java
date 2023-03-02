@@ -42,7 +42,7 @@ public class PayPage {
     }
     public void notificationInvalidString() { invalidString.shouldBe(Condition.visible); }
 
-    public void card (CardPattern cardInfo) {
+    public void initializeCard (CardPattern cardInfo) {
         cardNumber.setValue(cardInfo.getCardNumber());
         month.setValue(cardInfo.getMonth());
         year.setValue(cardInfo.getYear());

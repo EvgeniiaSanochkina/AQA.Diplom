@@ -19,11 +19,11 @@ public class TestCreditPage {
         open("http://localhost:8080/");
     }
     @BeforeAll
-    public void setUpAll() {
+    static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
     @AfterAll
-    public void tearDownAll() {
+    static void tearDownAll() {
         SelenideLogger.removeListener("allure");
     }
 
@@ -36,7 +36,7 @@ public class TestCreditPage {
     void testBuyCreditUsingApprovedCardWithValidInformationAndReturnSuccessNotification() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithValidInformation();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         payPage.notificationSuccess();
         //postgresql прошел тест
         //sql прошел тест
@@ -46,7 +46,7 @@ public class TestCreditPage {
     void testBuyCreditUsingApprovedCardWithValidInformationAndReturnApprovedStatus() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithValidInformation();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         var expected = DataHelper.getApprovedStatus();
         var actual = DBHelper.getPayCreditStatus();
         assertEquals(expected, actual);
@@ -58,7 +58,7 @@ public class TestCreditPage {
     void testBuyCreditUsingApprovedCardWithInvalidMonth() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithInvalidMonth();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         payPage.notificationInvalidExpirationDate();
     }
 
@@ -66,7 +66,7 @@ public class TestCreditPage {
     void testBuyCreditUsingApprovedCardWithInvalidYear() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithInvalidYear();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         payPage.notificationInvalidExpirationDate();
     }
 
@@ -74,7 +74,7 @@ public class TestCreditPage {
     void testBuyCreditUsingApprovedCardWithPastYear() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithPastYear();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         payPage.notificationPastYear();
     }
 
@@ -82,7 +82,7 @@ public class TestCreditPage {
     void testBuyCreditUsingApprovedCardWithEmptyCardHolder() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithEmptyCardHolder();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         payPage.notificationEmptyCardHolder();
     }
 
@@ -90,7 +90,7 @@ public class TestCreditPage {
     void testBuyCreditUsingApprovedCardWithInvalidCVV() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithInvalidCVV();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         payPage.notificationInvalidString();
     }
 
@@ -98,7 +98,7 @@ public class TestCreditPage {
     void testBuyCreditUsingApprovedCardWithEmptyMonth() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithEmptyMonth();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         payPage.notificationInvalidString();
     }
 
@@ -106,7 +106,7 @@ public class TestCreditPage {
     void testBuyCreditUsingApprovedCardWithEmptyYear() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithEmptyYear();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         payPage.notificationInvalidString();
     }
 
@@ -114,7 +114,7 @@ public class TestCreditPage {
     void testBuyCreditUsingApprovedCardWithEmptyCVV() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithEmptyCVV();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         payPage.notificationInvalidString();
     }
 
@@ -122,7 +122,7 @@ public class TestCreditPage {
     void testBuyCreditUsingDeclinedCardWithValidInformationAndReturnErrorNotification() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateDeclinedCardWithValidInformation();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         payPage.notificationError();
         //postgresql не прошел тест
         //sql не прошел тест
@@ -132,7 +132,7 @@ public class TestCreditPage {
     void testBuyCreditUsingDeclinedCardWithValidInformationAndReturnDeclinedStatus() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateDeclinedCardWithValidInformation();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         var expected = DataHelper.getDeclinedStatus();
         var actual = DBHelper.getPayCreditStatus();
         assertEquals(expected, actual);
@@ -144,7 +144,7 @@ public class TestCreditPage {
     void testBuyCreditUsingCardWithRandomNumberAndReturnErrorNotification() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateCardWithRandomNumber();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         payPage.notificationError();
         // postgresql прошел тест
         // sql прошел тест
@@ -154,7 +154,7 @@ public class TestCreditPage {
     void testBuyCreditUsingCardWithRandomNumberAndReturnDeclinedStatus() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateCardWithRandomNumber();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         var expected = DataHelper.getDeclinedStatus();
         var actual = DBHelper.getPayCreditStatus();
         assertEquals(expected, actual);
@@ -166,7 +166,7 @@ public class TestCreditPage {
     void testBuyUsingCardWithIncompleteNumber() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateCardWithIncompleteCardNumber();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         payPage.notificationInvalidString();
     }
 
@@ -174,7 +174,7 @@ public class TestCreditPage {
     void testBuyUsingApprovedCardWithLongCardHolderName() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithLongCardHolderName();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         payPage.notificationInvalidString();
     }
 
@@ -182,7 +182,7 @@ public class TestCreditPage {
     void testBuyUsingApprovedCardWithMonth00() {
         var payPage = new MainPage().buyCredit();
         var cardInfo = DataHelper.generateApprovedCardWithMonth00();
-        payPage.card(cardInfo);
+        payPage.initializeCard(cardInfo);
         payPage.notificationInvalidString();
     }
 }

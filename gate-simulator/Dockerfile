@@ -1,6 +1,6 @@
-FROM node:debian:11.6
-WORKDIR /app
+FROM node:lts-alpine3.12
+WORKDIR /opt/app
 COPY . .
 RUN npm install
-CMD [ "npm", "start" ]
+CMD ["npm", "start"]
 EXPOSE 9999
