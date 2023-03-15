@@ -9,13 +9,13 @@ import static java.sql.DriverManager.getConnection;
 
 public class DBHelper {
 
-    public static String urlName = "jdbc:mysql://localhost:3306/app";
-    public static String userName = "app";
-    public static String passwordName = "pass";
+    public static String urlName = System.getProperty("url");
+    public static String userName = System.getProperty("user");
+    public static String passwordName = System.getProperty("password");
 
     @SneakyThrows
     public static String getPayStatus() {
-        var runner = new QueryRunner();
+        var runner = new QueryRunner(); //исполнитель запроса
         var statusSQL = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1;";
      //var conn = getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
         var conn = getConnection(urlName, userName, passwordName);
