@@ -14,11 +14,3 @@
 4. Ввести в новом терминале команду ./gradlew allureServe;
 5. Нажать в каждом из терминалов сочетание клавиш ctrl + с для остановки приложения;
 6. Ввести Y в терминале с командой ./gradlew allureServe.
-
-## Запуск приложениям с подключением к Postresql, запуск тестов и выгрузка отчета
-1. Ввести в терминале IntelliJ IDEA команду docker-compose up;
-2. Ввести в новом терминале IntelliJ IDEA команду java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app"  "-Dspring.datasource.username=app" "-Dspring.datasource.password=pass" -jar aqa-shop.jar
-3. Ввести в новом терминале команду ./gradlew clean test -Durl=jdbc:postgresql://localhost:5432/app;
-4. Ввести в новом терминале команду ./gradlew allureServe;
-5. Нажать в каждом из терминалов сочетание клавиш ctrl + с для остановки приложения;
-6. Ввести Y в терминале с командой ./gradlew allureServe.
